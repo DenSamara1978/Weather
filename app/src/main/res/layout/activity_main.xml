@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".MainActivity">
+
+    <TextView
+        android:id="@+id/cityView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/city_name"
+        android:textSize="42sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.056" />
+
+    <ImageView
+        android:id="@+id/cloudinessView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="30dp"
+        android:contentDescription="@string/cloudiness_vew_desc"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityView"
+        app:srcCompat="@drawable/clear" />
+
+    <ImageView
+        android:id="@+id/windView"
+        android:layout_width="100dp"
+        android:layout_height="100dp"
+        android:layout_marginTop="30dp"
+        android:layout_marginEnd="100dp"
+        android:contentDescription="@string/wind_view_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toEndOf="@+id/cloudinessView"
+        app:layout_constraintTop_toBottomOf="@+id/cityView"
+        app:srcCompat="@drawable/wind" />
+
+    <TextView
+        android:id="@+id/temperatureView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="30dp"
+        android:layout_marginTop="28dp"
+        android:text="@string/temperature"
+        android:textSize="56sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/windView" />
+
+    <TextView
+        android:id="@+id/humidityView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dp"
+        android:layout_marginEnd="30dp"
+        android:text="@string/humidity"
+        android:textSize="56sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintStart_toEndOf="@+id/temperatureView"
+        app:layout_constraintTop_toBottomOf="@+id/windView" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>
