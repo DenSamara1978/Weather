@@ -8,4 +8,8 @@
     <string name="searchCityTextView">Search</string>
     <string name="city_name_autofill">Name</string>
     <string name="extended_info">Extended info</string>
+    <string name="settings">Settings</string>
+    <string name="fahrenheit_scale">Fahrenheit scale</string>
+    <string name="show_wind_params">Show wind params</string>
+    <string name="save_settings">Save settings</string>
 </resources>

@@ -9,4 +9,8 @@
     <string name="searchCityTextView">Поиск</string>
     <string name="city_name_autofill">Название</string>
     <string name="extended_info">Расширенная информация</string>
+    <string name="settings">Настройки</string>
+    <string name="fahrenheit_scale">Шкала Фаренгейта</string>
+    <string name="show_wind_params">Показывать ветренность</string>
+    <string name="save_settings">Сохранить настройки</string>
 </resources>
