@@ -10,60 +10,84 @@
         android:id="@+id/cityView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="15dp"
+        android:clickable="true"
+        android:focusable="true"
         android:text="@string/city_name"
         android:textSize="42sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.056" />
+        app:layout_constraintTop_toBottomOf="@+id/contextAboutCityButton" />
 
     <ImageView
         android:id="@+id/cloudinessView"
         android:layout_width="100dp"
         android:layout_height="100dp"
         android:layout_marginStart="100dp"
-        android:layout_marginTop="30dp"
+        android:layout_marginTop="20dp"
         android:contentDescription="@string/cloudiness_vew_desc"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/cityView"
+        app:layout_constraintTop_toBottomOf="@+id/temperatureView"
         app:srcCompat="@drawable/clear" />
 
     <ImageView
         android:id="@+id/windView"
         android:layout_width="100dp"
         android:layout_height="100dp"
-        android:layout_marginTop="30dp"
         android:layout_marginEnd="100dp"
         android:contentDescription="@string/wind_view_desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintHorizontal_bias="0.866"
         app:layout_constraintStart_toEndOf="@+id/cloudinessView"
-        app:layout_constraintTop_toBottomOf="@+id/cityView"
+        app:layout_constraintTop_toTopOf="@+id/cloudinessView"
         app:srcCompat="@drawable/wind" />
 
     <TextView
         android:id="@+id/temperatureView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="30dp"
-        android:layout_marginTop="28dp"
+        android:layout_marginStart="32dp"
+        android:layout_marginTop="20dp"
+        android:layout_marginEnd="20dp"
         android:text="@string/temperature"
         android:textSize="56sp"
+        app:layout_constraintEnd_toStartOf="@+id/humidityView"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/windView" />
+        app:layout_constraintTop_toBottomOf="@+id/cityView" />
 
     <TextView
         android:id="@+id/humidityView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="28dp"
         android:layout_marginEnd="30dp"
         android:text="@string/humidity"
         android:textSize="56sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.521"
+        app:layout_constraintHorizontal_bias="0.559"
         app:layout_constraintStart_toEndOf="@+id/temperatureView"
-        app:layout_constraintTop_toBottomOf="@+id/windView" />
+        app:layout_constraintTop_toTopOf="@+id/temperatureView" />
+
+    <Button
+        android:id="@+id/contextAboutCityButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/about_city"
+        android:textAllCaps="false"
+        android:textSize="24sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.543"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/settingsButton" />
+
+    <ImageButton
+        android:id="@+id/settingsButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:srcCompat="@android:drawable/ic_menu_preferences" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
