@@ -7,11 +7,13 @@ public class GlobalSettings
 
     private boolean windShow;
     private boolean fahrenheitScale;
+    private String cityName;
 
     private GlobalSettings ()
     {
         windShow = false;
         fahrenheitScale = false;
+        cityName = "Москва";
     }
 
     public static GlobalSettings getInstance ()
@@ -36,6 +38,10 @@ public class GlobalSettings
         return fahrenheitScale;
     }
 
+    public String getCityName () {
+        return cityName;
+    }
+
     public void setWindShow ( boolean windShow )
     {
         this.windShow = windShow;
@@ -44,6 +50,10 @@ public class GlobalSettings
     public void setFahrenheitScale ( boolean fahrenheitScale )
     {
         this.fahrenheitScale = fahrenheitScale;
+    }
+
+    public void setCityName ( String cityName ) {
+        this.cityName = cityName;
     }
 }
 

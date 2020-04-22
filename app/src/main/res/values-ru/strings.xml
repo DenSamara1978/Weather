@@ -13,4 +13,6 @@
     <string name="fahrenheit_scale">Шкала Фаренгейта</string>
     <string name="show_wind_params">Показывать ветренность</string>
     <string name="save_settings">Сохранить настройки</string>
+    <string name="about_city">О городе</string>
+    <string name="settings_saved">Настройки сохранены</string>
 </resources>

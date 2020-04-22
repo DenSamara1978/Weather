@@ -12,4 +12,6 @@
     <string name="fahrenheit_scale">Fahrenheit scale</string>
     <string name="show_wind_params">Show wind params</string>
     <string name="save_settings">Save settings</string>
+    <string name="about_city">About city</string>
+    <string name="settings_saved">Settings are saved</string>
 </resources>

@@ -2,134 +2,76 @@ package ru.melandra.weather;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
-import android.provider.Settings;
-import android.util.Log;
 import android.view.View;
-import android.widget.CheckBox;
-import android.widget.Toast;
+import android.widget.Button;
+import android.widget.ImageButton;
+import android.widget.TextView;
 
-public class MainActivity extends AppCompatActivity
+public class MainActivity extends AppCompatActivity implements Constants
 {
+    TextView cityNameLabel;
+    ImageButton settingsButton;
 
-    private final String fahrenheitScaleParamName = "GLOBAL_SETTINGS.FAHRENHEIT_SCALE";
-    private final String windShowParamName = "GLOBAL_SETTINGS.WIND_SHOW";
-
-    CheckBox fCheckBox;
-    CheckBox wCheckBox;
+    private final static int REQUEST_CODE = 1;
 
     @Override
     protected void onCreate ( final Bundle savedInstanceState )
     {
         super.onCreate ( savedInstanceState );
-        setContentView ( R.layout.settings_layout );
+        setContentView ( R.layout.activity_main );
 
-        fCheckBox = findViewById ( R.id.fahrenheitScaleCheckBox );
-        wCheckBox = findViewById ( R.id.windShowCheckBox );
+        cityNameLabel = findViewById ( R.id.cityView );
+        Button aboutButton = findViewById ( R.id.contextAboutCityButton );
+        ImageButton settingsButton = findViewById ( R.id.settingsButton );
 
-        if ( savedInstanceState == null )
-            toastAndLog ( "onCreate() is firstly called." );
-        else
-        {
-            toastAndLog ( "onCreate() is called one more time." );
-            restoreGlobalSettings ( savedInstanceState );
-            setControls ();
-        }
+        cityNameLabel.setText ( GlobalSettings.getInstance ().getCityName ());
 
-        findViewById ( R.id.saveSettingsButton ).setOnClickListener ( new View.OnClickListener ()
+        aboutButton.setOnClickListener ( new View.OnClickListener ()
         {
             @Override
             public void onClick ( View view )
             {
-                GlobalSettings.getInstance ().setFahrenheitScale ( fCheckBox.isChecked () );
-                GlobalSettings.getInstance ().setWindShow ( wCheckBox.isChecked () );
+                Intent intent = new Intent ( Intent.ACTION_VIEW, Uri.parse ("https://ru.wikipedia.org/wiki/" + cityNameLabel.getText ()));
+                startActivity ( intent );
+            }
+        } );
+
+        settingsButton.setOnClickListener ( new View.OnClickListener ()
+        {
+            @Override
+            public void onClick ( View view )
+            {
+                Intent intent = new Intent ( MainActivity.this, SettingsActivity.class );
+                startActivity ( intent );
+            }
+        } );
+
+        cityNameLabel.setOnClickListener ( new View.OnClickListener ()
+        {
+            @Override
+            public void onClick ( View view )
+            {
+                Intent intent = new Intent ( MainActivity.this, CitySelectionActivity.class );
+                startActivityForResult ( intent, REQUEST_CODE );
             }
         } );
     }
 
-    private void restoreGlobalSettings ( Bundle state ) {
-        if ( state != null )
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        if (requestCode != REQUEST_CODE) {
+            super.onActivityResult(requestCode, resultCode, data);
+            return;
+        }
+
+        if (resultCode == RESULT_OK)
         {
-            GlobalSettings.getInstance ().setFahrenheitScale ( state.getBoolean ( fahrenheitScaleParamName, false ) );
-            GlobalSettings.getInstance ().setWindShow ( state.getBoolean ( windShowParamName, false ) );
+            String cityName = data.getStringExtra ( cityNameIntentParam );
+            cityNameLabel.setText ( cityName );
+            GlobalSettings.getInstance ().setCityName ( cityName );
         }
-    }
-
-    private void saveGlobalSettings ( Bundle state ) {
-        if ( state != null ) {
-            state.putBoolean ( fahrenheitScaleParamName, GlobalSettings.getInstance ().getFahrenheitScale () );
-            state.putBoolean ( windShowParamName, GlobalSettings.getInstance ().getWindShow ());
-        }
-    }
-
-    private void setControls () {
-        fCheckBox.setChecked ( GlobalSettings.getInstance ().getFahrenheitScale () );
-        wCheckBox.setChecked ( GlobalSettings.getInstance ().getWindShow () );
-    }
-
-    @Override
-    protected void onSaveInstanceState ( Bundle outState )
-    {
-        super.onSaveInstanceState ( outState );
-        toastAndLog ( "onSaveInstanceState() called." );
-
-        saveGlobalSettings ( outState );
-        setControls ();
-    }
-
-    @Override
-    protected void onRestoreInstanceState ( Bundle savedInstanceState )
-    {
-        super.onRestoreInstanceState ( savedInstanceState );
-        toastAndLog ( "onRestoreInstanceState() called." );
-
-        restoreGlobalSettings ( savedInstanceState );
-    }
-
-    @Override
-    protected void onStart ()
-    {
-        super.onStart ();
-        toastAndLog ( "onStart() called." );
-    }
-
-    @Override
-    protected void onResume ()
-    {
-        super.onResume ();
-        toastAndLog ( "onResume() called." );
-    }
-
-    @Override
-    protected void onRestart ()
-    {
-        super.onRestart ();
-        toastAndLog ( "onRestart() called." );
-    }
-
-    @Override
-    protected void onPause ()
-    {
-        super.onPause ();
-        toastAndLog ( "onPause() called." );
-    }
-
-    @Override
-    protected void onStop ()
-    {
-        super.onStop ();
-        toastAndLog ( "onStop() called." );
-    }
-
-    @Override
-    protected void onDestroy ()
-    {
-        super.onDestroy ();
-        toastAndLog ( "onDestroy() called." );
-    }
-
-    private void toastAndLog ( String message ) {
-        Toast.makeText ( getApplicationContext (), message, Toast.LENGTH_SHORT ).show ();
-        Log.d ( "LIFE_CYCLE", message );
     }
 }
