@@ -22,7 +22,8 @@ public class GlobalSettings
         {
             synchronized ( monitor )
             {
-                instance = new GlobalSettings ();
+                if ( instance == null )
+                    instance = new GlobalSettings ();
             }
         }
         return instance;
