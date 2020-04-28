@@ -1,4 +1,4 @@
-package ru.melandra.weather;
+package ru.melandra.weather.global;
 
 public interface Constants
 {

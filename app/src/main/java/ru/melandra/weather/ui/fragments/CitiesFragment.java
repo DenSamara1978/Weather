@@ -1,4 +1,4 @@
-package ru.melandra.weather;
+package ru.melandra.weather.ui.fragments;
 
 import android.content.Intent;
 import android.content.res.Configuration;
@@ -17,7 +17,10 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.TextView;
 
-import static android.app.Activity.RESULT_OK;
+import ru.melandra.weather.global.Constants;
+import ru.melandra.weather.global.GlobalSettings;
+import ru.melandra.weather.R;
+import ru.melandra.weather.ui.activities.WeatherActivity;
 
 
 /**

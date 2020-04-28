@@ -5,91 +5,99 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#BBE9F8"
-    tools:context=".WeatherFragment">
+    tools:context=".ui.fragments.WeatherFragment">
 
     <TextView
         android:id="@+id/cityView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="15dp"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="16dp"
         android:clickable="true"
         android:focusable="true"
         android:text="@string/city_name"
         android:textSize="42sp"
-        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contextAboutCityButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageView
         android:id="@+id/cloudinessView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginStart="100dp"
-        android:layout_marginTop="20dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
         android:contentDescription="@string/cloudiness_vew_desc"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/temperatureView"
+        app:layout_constraintEnd_toStartOf="@+id/windView"
+        app:layout_constraintTop_toBottomOf="@+id/cityView"
         app:srcCompat="@drawable/clear" />
 
     <ImageView
         android:id="@+id/windView"
-        android:layout_width="100dp"
-        android:layout_height="100dp"
-        android:layout_marginEnd="100dp"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="22dp"
+        android:layout_marginEnd="36dp"
         android:contentDescription="@string/wind_view_desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.866"
-        app:layout_constraintStart_toEndOf="@+id/cloudinessView"
-        app:layout_constraintTop_toTopOf="@+id/cloudinessView"
+        app:layout_constraintTop_toBottomOf="@+id/contextAboutCityButton"
         app:srcCompat="@drawable/wind" />
 
     <TextView
         android:id="@+id/temperatureView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginTop="20dp"
-        android:layout_marginEnd="20dp"
         android:text="@string/temperature"
         android:textSize="56sp"
-        app:layout_constraintEnd_toStartOf="@+id/humidityView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/cityView" />
 
     <TextView
         android:id="@+id/humidityView"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginEnd="30dp"
+        android:layout_height="73dp"
+        android:layout_marginStart="42dp"
         android:text="@string/humidity"
         android:textSize="56sp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.559"
-        app:layout_constraintStart_toEndOf="@+id/temperatureView"
-        app:layout_constraintTop_toTopOf="@+id/temperatureView" />
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperatureView" />
 
     <Button
         android:id="@+id/contextAboutCityButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="16dp"
         android:text="@string/about_city"
         android:textAllCaps="false"
         android:textSize="24sp"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.543"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="@+id/settingsButton" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
         android:id="@+id/settingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
+        android:layout_marginTop="12dp"
         android:layout_marginEnd="16dp"
         android:contentDescription="TODO"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/windView"
         app:srcCompat="@android:drawable/ic_menu_preferences" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/threeDaysList"
+        android:layout_width="407dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/humidityView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

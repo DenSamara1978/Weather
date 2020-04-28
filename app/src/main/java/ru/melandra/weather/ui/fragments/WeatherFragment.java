@@ -1,11 +1,14 @@
-package ru.melandra.weather;
+package ru.melandra.weather.ui.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 
-import androidx.constraintlayout.widget.ConstraintLayout;
 import androidx.fragment.app.Fragment;
+import androidx.recyclerview.widget.DividerItemDecoration;
+import androidx.recyclerview.widget.LinearLayoutManager;
+import androidx.recyclerview.widget.RecyclerView;
 
 import android.view.LayoutInflater;
 import android.view.View;
@@ -14,7 +17,13 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import static ru.melandra.weather.Constants.cityNameParam;
+import ru.melandra.weather.datasources.WeatherDayDataSource;
+import ru.melandra.weather.datasources.WeatherDaySourceBuilder;
+import ru.melandra.weather.global.Constants;
+import ru.melandra.weather.global.GlobalSettings;
+import ru.melandra.weather.R;
+import ru.melandra.weather.ui.activities.SettingsActivity;
+import ru.melandra.weather.ui.adapters.WeatherDayAdapter;
 
 
 /**
@@ -24,6 +33,7 @@ public class WeatherFragment extends Fragment implements Constants
 {
     private TextView cityNameLabel;
     private ImageButton settingsButton;
+    private RecyclerView threeDaysList;
 
     private final static int REQUEST_CODE = 1;
 
@@ -50,6 +60,8 @@ public class WeatherFragment extends Fragment implements Constants
         cityNameLabel = view.findViewById ( R.id.cityView );
         Button aboutButton = view.findViewById ( R.id.contextAboutCityButton );
         ImageButton settingsButton = view.findViewById ( R.id.settingsButton );
+        threeDaysList = view.findViewById ( R.id.threeDaysList );
+
         if ( getArguments () == null )
             cityNameLabel.setText ( GlobalSettings.getInstance ().getCityName ());
         else
@@ -76,15 +88,7 @@ public class WeatherFragment extends Fragment implements Constants
             }
         } );
 
-//        cityNameLabel.setOnClickListener ( new View.OnClickListener ()
-//        {
-//            @Override
-//            public void onClick ( View view )
-//            {
-//                Intent intent = new Intent ( getContext (), MainActivity.class );
-//                startActivityForResult ( intent, REQUEST_CODE );
-//            }
-//       } );
+        initThreeDaysList ();
 
         return view;
     }
@@ -92,5 +96,18 @@ public class WeatherFragment extends Fragment implements Constants
     public String getCurrentCityName () {
         Bundle args = getArguments ();
         return ( args != null ) ? args.getString ( cityNameParam, "" ) : "";
+    }
+
+    private void initThreeDaysList () {
+        threeDaysList.setHasFixedSize ( true );
+        threeDaysList.setLayoutManager ( new LinearLayoutManager ( getContext (), RecyclerView.VERTICAL, false));
+
+        WeatherDayDataSource data  = new WeatherDaySourceBuilder ().build ();
+        threeDaysList.setAdapter ( new WeatherDayAdapter ( data ));
+
+        Context context = getContext ();
+        DividerItemDecoration itemDecoration = new DividerItemDecoration ( context, LinearLayoutManager.VERTICAL );
+        itemDecoration.setDrawable ( context.getDrawable(R.drawable.separator ));
+        threeDaysList.addItemDecoration(itemDecoration);
     }
 }

@@ -1,4 +1,4 @@
-package ru.melandra.weather;
+package ru.melandra.weather.ui.activities;
 
 import android.os.Bundle;
 import android.view.View;
@@ -6,6 +6,10 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+
+import ru.melandra.weather.global.Constants;
+import ru.melandra.weather.global.GlobalSettings;
+import ru.melandra.weather.R;
 
 public class SettingsActivity extends AppCompatActivity implements Constants
 {

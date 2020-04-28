@@ -1,9 +1,13 @@
-package ru.melandra.weather;
+package ru.melandra.weather.ui.activities;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import android.content.res.Configuration;
 import android.os.Bundle;
+
+import ru.melandra.weather.global.Constants;
+import ru.melandra.weather.R;
+import ru.melandra.weather.ui.fragments.WeatherFragment;
 
 public class WeatherActivity extends AppCompatActivity implements Constants
 {
