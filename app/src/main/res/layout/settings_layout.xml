@@ -3,6 +3,7 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/settings_layout"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
@@ -36,7 +37,7 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fahrenheitScaleCheckBox" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/saveSettingsButton"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -46,4 +47,31 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:layout_width="315dp"
+        android:layout_height="55dp"
+        android:layout_marginTop="20dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/darkThemeCheckBox">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="@string/name"
+            tools:layout_editor_absoluteX="2dp"
+            tools:layout_editor_absoluteY="325dp" />
+
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <CheckBox
+        android:id="@+id/darkThemeCheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:text="@string/dark_theme"
+        app:layout_constraintStart_toStartOf="@+id/windShowCheckBox"
+        app:layout_constraintTop_toBottomOf="@+id/windShowCheckBox" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

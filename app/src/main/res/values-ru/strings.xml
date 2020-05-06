@@ -15,4 +15,9 @@
     <string name="save_settings">Сохранить настройки</string>
     <string name="about_city">О городе</string>
     <string name="settings_saved">Настройки сохранены</string>
+    <string name="name">Имя</string>
+    <string name="settings_are_saved">Установки сохранены</string>
+    <string name="save_settings_answer">Сохранить установку?</string>
+    <string name="yes">ДА</string>
+    <string name="dark_theme">Темная тема</string>
 </resources>

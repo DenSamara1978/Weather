@@ -14,4 +14,9 @@
     <string name="save_settings">Save settings</string>
     <string name="about_city">About city</string>
     <string name="settings_saved">Settings are saved</string>
+    <string name="name">Name</string>
+    <string name="settings_are_saved">Settings are saved</string>
+    <string name="save_settings_answer">Save settings?</string>
+    <string name="yes">YES</string>
+    <string name="dark_theme">Dark theme</string>
 </resources>

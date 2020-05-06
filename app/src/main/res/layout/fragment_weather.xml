@@ -35,11 +35,10 @@
         android:id="@+id/windView"
         android:layout_width="80dp"
         android:layout_height="80dp"
-        android:layout_marginTop="22dp"
         android:layout_marginEnd="36dp"
         android:contentDescription="@string/wind_view_desc"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/contextAboutCityButton"
+        app:layout_constraintTop_toTopOf="@+id/cloudinessView"
         app:srcCompat="@drawable/wind" />
 
     <TextView
@@ -63,15 +62,15 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/temperatureView" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/contextAboutCityButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:layout_marginEnd="16dp"
+        android:layout_width="124dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="100dp"
         android:text="@string/about_city"
         android:textAllCaps="false"
-        android:textSize="24sp"
+        android:textSize="16sp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 

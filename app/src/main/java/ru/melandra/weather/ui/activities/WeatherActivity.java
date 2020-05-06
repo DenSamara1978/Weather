@@ -9,7 +9,7 @@ import ru.melandra.weather.global.Constants;
 import ru.melandra.weather.R;
 import ru.melandra.weather.ui.fragments.WeatherFragment;
 
-public class WeatherActivity extends AppCompatActivity implements Constants
+public class WeatherActivity extends BaseActivity
 {
 
     @Override
