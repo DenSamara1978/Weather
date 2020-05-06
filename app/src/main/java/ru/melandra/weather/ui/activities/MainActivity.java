@@ -7,7 +7,7 @@ import android.os.Bundle;
 import ru.melandra.weather.global.Constants;
 import ru.melandra.weather.R;
 
-public class MainActivity extends AppCompatActivity implements Constants
+public class MainActivity extends BaseActivity
 {
     @Override
     protected void onCreate ( final Bundle savedInstanceState )

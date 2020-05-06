@@ -7,12 +7,14 @@ public class GlobalSettings
 
     private boolean windShow;
     private boolean fahrenheitScale;
+    private boolean darkTheme;
     private String cityName;
 
     private GlobalSettings ()
     {
         windShow = false;
         fahrenheitScale = false;
+        darkTheme = false;
         cityName = "Москва";
     }
 
@@ -55,6 +57,16 @@ public class GlobalSettings
 
     public void setCityName ( String cityName ) {
         this.cityName = cityName;
+    }
+
+    public boolean isDarkTheme ()
+    {
+        return darkTheme;
+    }
+
+    public void setDarkTheme ( boolean darkTheme )
+    {
+        this.darkTheme = darkTheme;
     }
 }
 

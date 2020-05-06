@@ -6,15 +6,20 @@ import android.widget.CheckBox;
 import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
+
+import com.google.android.material.snackbar.Snackbar;
 
 import ru.melandra.weather.global.Constants;
 import ru.melandra.weather.global.GlobalSettings;
 import ru.melandra.weather.R;
 
-public class SettingsActivity extends AppCompatActivity implements Constants
+public class SettingsActivity extends BaseActivity
 {
     CheckBox fCheckBox;
     CheckBox wCheckBox;
+    CheckBox tCheckBox;
+    View settingsLayout;
 
     @Override
     protected void onCreate ( final Bundle savedInstanceState )
@@ -24,6 +29,8 @@ public class SettingsActivity extends AppCompatActivity implements Constants
 
         fCheckBox = findViewById ( R.id.fahrenheitScaleCheckBox );
         wCheckBox = findViewById ( R.id.windShowCheckBox );
+        tCheckBox = findViewById ( R.id.darkThemeCheckBox );
+        settingsLayout = findViewById ( R.id.settings_layout );
 
         restoreGlobalSettings ();
         setControls ();
@@ -33,17 +40,28 @@ public class SettingsActivity extends AppCompatActivity implements Constants
             @Override
             public void onClick ( View view )
             {
-                GlobalSettings.getInstance ().setFahrenheitScale ( fCheckBox.isChecked () );
-                GlobalSettings.getInstance ().setWindShow ( wCheckBox.isChecked () );
-                saveGlobalSettings ();
-                Toast.makeText ( getApplicationContext (), getString( R.string.settings_saved), Toast.LENGTH_SHORT ).show ();
-            }
+                Snackbar.make(settingsLayout, getString( R.string.save_settings_answer), Snackbar.LENGTH_LONG)
+                        .setAction( R.string.yes, new View.OnClickListener() {
+                            @Override
+                            public void onClick(View v) {
+                                GlobalSettings.getInstance ().setFahrenheitScale ( fCheckBox.isChecked () );
+                                GlobalSettings.getInstance ().setWindShow ( wCheckBox.isChecked () );
+                                GlobalSettings.getInstance ().setDarkTheme ( tCheckBox.isChecked ());
+                                saveGlobalSettings ();
+
+                                recreate ();
+
+                                Toast.makeText(getApplicationContext (), R.string.settings_are_saved, Toast.LENGTH_LONG).show();
+                            }
+                        }).show();
+           }
         } );
     }
 
     private void setControls () {
         fCheckBox.setChecked ( GlobalSettings.getInstance ().getFahrenheitScale () );
         wCheckBox.setChecked ( GlobalSettings.getInstance ().getWindShow () );
+        tCheckBox.setChecked ( GlobalSettings.getInstance ().isDarkTheme () );
     }
 
     private void restoreGlobalSettings () {

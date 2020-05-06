@@ -25,6 +25,8 @@ import ru.melandra.weather.R;
 import ru.melandra.weather.ui.activities.SettingsActivity;
 import ru.melandra.weather.ui.adapters.WeatherDayAdapter;
 
+import static android.app.Activity.RESULT_OK;
+
 
 /**
  * A simple {@link Fragment} subclass.
@@ -84,13 +86,22 @@ public class WeatherFragment extends Fragment implements Constants
             public void onClick ( View view )
             {
                 Intent intent = new Intent ( getContext (), SettingsActivity.class );
-                startActivity ( intent );
+                startActivityForResult ( intent, REQUEST_CODE );
             }
         } );
 
         initThreeDaysList ();
 
         return view;
+    }
+
+    @Override
+    public void onActivityResult ( int requestCode, int resultCode, Intent data )
+    {
+        if ( requestCode == REQUEST_CODE )
+            getActivity ().recreate ();
+        else
+            super.onActivityResult(requestCode, resultCode, data);
     }
 
     public String getCurrentCityName () {
