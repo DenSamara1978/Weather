@@ -2,7 +2,7 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
     package="ru.melandra.weather">
 
-    <uses-permission android:name="android.permission.INTERNET"/>
+    <uses-permission android:name="android.permission.INTERNET" />
 
     <application
         android:allowBackup="true"
@@ -11,7 +11,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
-        <activity android:name=".WeatherDayItem"></activity>
+        <activity android:name=".ui.activities.RecentlyCitiesActivity"/>
+        <activity android:name=".WeatherDayItem" />
         <activity android:name=".ui.activities.WeatherActivity" />
         <activity android:name=".ui.activities.MainActivity">
             <intent-filter>

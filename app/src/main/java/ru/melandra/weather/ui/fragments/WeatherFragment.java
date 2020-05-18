@@ -51,7 +51,6 @@ import static androidx.constraintlayout.widget.Constraints.TAG;
 public class WeatherFragment extends Fragment implements Constants
 {
     private TextView cityNameLabel;
-    private ImageButton settingsButton;
     private RecyclerView threeDaysList;
     private TextView temperatureView;
     private TextView humidityView;
@@ -80,13 +79,14 @@ public class WeatherFragment extends Fragment implements Constants
 
         cityNameLabel = view.findViewById ( R.id.cityView );
         Button aboutButton = view.findViewById ( R.id.contextAboutCityButton );
-        ImageButton settingsButton = view.findViewById ( R.id.settingsButton );
         threeDaysList = view.findViewById ( R.id.threeDaysList );
         temperatureView = view.findViewById ( R.id.temperatureView );
         humidityView = view.findViewById ( R.id.humidityView );
 
         String cityName = ( getArguments () == null ) ? GlobalSettings.getInstance ().getCityName () : getCurrentCityName ();
         cityNameLabel.setText ( cityName );
+        temperatureView.setText ( "-" );
+        humidityView.setText ( "-" );
 
         aboutButton.setOnClickListener ( new View.OnClickListener ()
         {
@@ -98,29 +98,10 @@ public class WeatherFragment extends Fragment implements Constants
             }
         } );
 
-        settingsButton.setOnClickListener ( new View.OnClickListener ()
-        {
-            @Override
-            public void onClick ( View view )
-            {
-                Intent intent = new Intent ( getContext (), SettingsActivity.class );
-                startActivityForResult ( intent, REQUEST_CODE );
-            }
-        } );
-
         initThreeDaysList ();
 
         requestWeather ( cityName );
         return view;
-    }
-
-    @Override
-    public void onActivityResult ( int requestCode, int resultCode, Intent data )
-    {
-        if ( requestCode == REQUEST_CODE )
-            getActivity ().recreate ();
-        else
-            super.onActivityResult(requestCode, resultCode, data);
     }
 
     public String getCurrentCityName () {
@@ -154,7 +135,7 @@ public class WeatherFragment extends Fragment implements Constants
                     try{
                         urlConnection = (HttpsURLConnection) uri.openConnection();
                         urlConnection.setRequestMethod("GET");
-                        urlConnection.setReadTimeout(10000);
+                        urlConnection.setReadTimeout(1000);
                         BufferedReader in = new BufferedReader(new InputStreamReader (urlConnection.getInputStream()));
                         String result = getLines(in);
                         Gson gson = new Gson();
@@ -191,7 +172,10 @@ public class WeatherFragment extends Fragment implements Constants
 
     private void displayWeather ( WeatherRequest request ) {
         cityNameLabel.setText ( request.getName ());
-        temperatureView.setText(String.format("%d°C", (int)(request.getMain().getTemp() - 273.16f )));
+        if ( GlobalSettings.getInstance ().getFahrenheitScale ())
+            temperatureView.setText(String.format("%d°F", (int)((request.getMain().getTemp() - 273.16f ) * 1.8f ) + 32 ));
+        else
+            temperatureView.setText(String.format("%d°C", (int)(request.getMain().getTemp() - 273.16f )));
         humidityView.setText(String.format("%d%%", request.getMain().getHumidity()));
     }
 }

@@ -20,4 +20,5 @@
     <string name="save_settings_answer">Сохранить установку?</string>
     <string name="yes">ДА</string>
     <string name="dark_theme">Темная тема</string>
+    <string name="recently_cities">Последние города</string>
 </resources>

@@ -7,4 +7,7 @@ public interface Constants
     String WEATHER_URL = "https://api.openweathermap.org/data/2.5/weather?";
 
     String cityNameParam = "CityName";
+
+    int REQUEST_SETTINGS_CODE = 1;
+    int REQUEST_RECENTLY_CITY_CODE = 2;
 }

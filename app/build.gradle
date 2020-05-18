@@ -14,7 +14,7 @@ android {
     buildTypes.each {
         Properties properties = new Properties()
         properties.load(project.rootProject.file("apikey").newDataInputStream())
-        def apiKey  = properties.getProperty("openweather_apikey", "")
+        def apiKey = properties.getProperty("openweather_apikey", "")
         it.buildConfigField "String", "API_KEY", apiKey
     }
 
