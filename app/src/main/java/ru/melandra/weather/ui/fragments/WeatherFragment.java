@@ -31,6 +31,7 @@ import javax.net.ssl.HttpsURLConnection;
 
 import com.google.gson.Gson;
 
+import ru.melandra.weather.BuildConfig;
 import ru.melandra.weather.data.WeatherRequest;
 import ru.melandra.weather.datasources.WeatherDayDataSource;
 import ru.melandra.weather.datasources.WeatherDaySourceBuilder;
@@ -142,7 +143,7 @@ public class WeatherFragment extends Fragment implements Constants
 
     private void requestWeather ( String cityName ) {
         try{
-            String url = WEATHER_URL + "q=" + cityName + "&appid=240af58b6f095eb759a3ecd2d282d448";
+            String url = WEATHER_URL + "q=" + cityName.replace ( " ", "%20" ) + "&appid=" + BuildConfig.API_KEY;
             final URL uri = new URL(url);
             final Handler handler = new Handler();
             new Thread(new Runnable() {
@@ -165,7 +166,13 @@ public class WeatherFragment extends Fragment implements Constants
                             }
                         });
                     }catch(Exception e){
-                        Toast.makeText ( getContext (), "Connection is failed", Toast.LENGTH_SHORT ).show ();
+                        handler.post (new Runnable () {
+                            @Override
+                            public void run()
+                            {
+                                Toast.makeText ( getContext (), "Connection is failed", Toast.LENGTH_SHORT ).show ();
+                            }
+                        });
                         e.printStackTrace();
                     }
                 }

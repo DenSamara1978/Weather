@@ -2,18 +2,18 @@
 <resources>
     <string-array name="cityNames">
         <item>Moscow</item>
-        <item>Saint-Petersburg</item>
+        <item>Saint Petersburg</item>
         <item>Nizhniy Novgorod</item>
         <item>Kazan</item>
         <item>Samara</item>
         <item>Volgograd</item>
-        <item>Rostov-na-Donu</item>
+        <item>Rostov-on-Don</item>
         <item>Krasnodar</item>
         <item>Sochi</item>
         <item>Ufa</item>
         <item>Perm</item>
         <item>Chelyabinsk</item>
-        <item>Yekaterinburg</item>
+        <item>Ekaterinburg</item>
         <item>Omsk</item>
         <item>Novosibirsk</item>
         <item>Krasnoyarsk</item>
