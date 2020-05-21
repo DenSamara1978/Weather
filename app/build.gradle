@@ -10,6 +10,14 @@ android {
         versionName "1.0"
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
+
+    buildTypes.each {
+        Properties properties = new Properties()
+        properties.load(project.rootProject.file("apikey").newDataInputStream())
+        def apiKey = properties.getProperty("openweather_apikey", "")
+        it.buildConfigField "String", "API_KEY", apiKey
+    }
+
     buildTypes {
         release {
             minifyEnabled false

@@ -1,5 +1,8 @@
 package ru.melandra.weather.global;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class GlobalSettings
 {
     private volatile static GlobalSettings instance = null;
@@ -10,12 +13,14 @@ public class GlobalSettings
     private boolean darkTheme;
     private String cityName;
 
+    private List<String> recentlyCities = new ArrayList<> ();
+
     private GlobalSettings ()
     {
         windShow = false;
         fahrenheitScale = false;
         darkTheme = false;
-        cityName = "Москва";
+        cityName = "Moscow";
     }
 
     public static GlobalSettings getInstance ()
@@ -57,6 +62,7 @@ public class GlobalSettings
 
     public void setCityName ( String cityName ) {
         this.cityName = cityName;
+        addRecentlyCity ( cityName );
     }
 
     public boolean isDarkTheme ()
@@ -67,6 +73,20 @@ public class GlobalSettings
     public void setDarkTheme ( boolean darkTheme )
     {
         this.darkTheme = darkTheme;
+    }
+
+    private void addRecentlyCity ( String cityName )
+    {
+        if ( recentlyCities.contains ( cityName ))
+            return;
+        recentlyCities.add ( cityName );
+        if ( recentlyCities.size () > 6 )
+            recentlyCities.remove ( 0 );
+    }
+
+    public List<String> getRecentlyCities ()
+    {
+        return recentlyCities;
     }
 }
 
