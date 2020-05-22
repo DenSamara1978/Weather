@@ -1,12 +1,14 @@
 package ru.melandra.weather.ui.fragments;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 
 import androidx.annotation.RequiresApi;
+import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
@@ -41,8 +43,6 @@ import ru.melandra.weather.R;
 import ru.melandra.weather.ui.activities.SettingsActivity;
 import ru.melandra.weather.ui.adapters.WeatherDayAdapter;
 
-import static android.app.Activity.RESULT_OK;
-import static androidx.constraintlayout.widget.Constraints.TAG;
 
 
 /**
@@ -123,6 +123,17 @@ public class WeatherFragment extends Fragment implements Constants
     }
 
     private void requestWeather ( String cityName ) {
+        AlertDialog.Builder builder = new AlertDialog.Builder ( getContext ());
+        builder.setTitle ( getString( R.string.important_message) )
+                .setMessage ( getString( R.string.connection_error) )
+                .setPositiveButton ( getString( R.string.ok), new DialogInterface.OnClickListener ()
+                {
+                    @Override
+                    public void onClick ( DialogInterface dialogInterface, int i )
+                    {
+                    }
+                } );
+        final AlertDialog alert = builder.create ();
         try{
             String url = WEATHER_URL + "q=" + cityName.replace ( " ", "%20" ) + "&appid=" + BuildConfig.API_KEY;
             final URL uri = new URL(url);
@@ -151,7 +162,7 @@ public class WeatherFragment extends Fragment implements Constants
                             @Override
                             public void run()
                             {
-                                Toast.makeText ( getContext (), "Connection is failed", Toast.LENGTH_SHORT ).show ();
+                                alert.show ();
                             }
                         });
                         e.printStackTrace();
@@ -165,7 +176,7 @@ public class WeatherFragment extends Fragment implements Constants
 
             }).start();
         }catch(Exception e){
-            Toast.makeText ( getContext (), "Connection is failed", Toast.LENGTH_SHORT).show ();
+            alert.show ();
         }
 
     }

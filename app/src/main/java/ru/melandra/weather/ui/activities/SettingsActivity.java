@@ -5,12 +5,8 @@ import android.view.View;
 import android.widget.CheckBox;
 import android.widget.Toast;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
 import com.google.android.material.snackbar.Snackbar;
 
-import ru.melandra.weather.global.Constants;
 import ru.melandra.weather.global.GlobalSettings;
 import ru.melandra.weather.R;
 
