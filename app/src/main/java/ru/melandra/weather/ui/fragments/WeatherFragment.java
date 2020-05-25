@@ -1,46 +1,32 @@
 package ru.melandra.weather.ui.fragments;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
-import android.os.Build;
 import android.os.Bundle;
 
-import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AlertDialog;
 import androidx.fragment.app.Fragment;
 import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
-import android.os.Handler;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageButton;
 import android.widget.TextView;
-import android.widget.Toast;
 
-import java.io.BufferedReader;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.stream.Collectors;
-
-import javax.net.ssl.HttpsURLConnection;
-
-import com.google.gson.Gson;
-
-import ru.melandra.weather.BuildConfig;
 import ru.melandra.weather.data.WeatherRequest;
+import ru.melandra.weather.datasources.NetInteraction;
+import ru.melandra.weather.datasources.RequestWeatherReciever;
 import ru.melandra.weather.datasources.WeatherDayDataSource;
 import ru.melandra.weather.datasources.WeatherDaySourceBuilder;
 import ru.melandra.weather.global.Constants;
 import ru.melandra.weather.global.GlobalSettings;
 import ru.melandra.weather.R;
-import ru.melandra.weather.ui.activities.SettingsActivity;
 import ru.melandra.weather.ui.adapters.WeatherDayAdapter;
 
 
@@ -48,7 +34,7 @@ import ru.melandra.weather.ui.adapters.WeatherDayAdapter;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class WeatherFragment extends Fragment implements Constants
+public class WeatherFragment extends Fragment implements Constants, RequestWeatherReciever
 {
     private TextView cityNameLabel;
     private RecyclerView threeDaysList;
@@ -56,6 +42,7 @@ public class WeatherFragment extends Fragment implements Constants
     private TextView humidityView;
 
     private final static int REQUEST_CODE = 1;
+    private AlertDialog alert;
 
     public WeatherFragment ()
     {
@@ -99,9 +86,24 @@ public class WeatherFragment extends Fragment implements Constants
         } );
 
         initThreeDaysList ();
+        initErrorDialog ();
 
-        requestWeather ( cityName );
+        NetInteraction.requestWeather ( cityName, this );
         return view;
+    }
+
+    private void initErrorDialog () {
+        AlertDialog.Builder builder = new AlertDialog.Builder ( getContext ());
+        builder.setTitle ( getString( R.string.important_message) )
+                .setMessage ( getString( R.string.connection_error) )
+                .setPositiveButton ( getString( R.string.ok), new DialogInterface.OnClickListener ()
+                {
+                    @Override
+                    public void onClick ( DialogInterface dialogInterface, int i )
+                    {
+                    }
+                } );
+        alert = builder.create ();
     }
 
     public String getCurrentCityName () {
@@ -122,65 +124,6 @@ public class WeatherFragment extends Fragment implements Constants
         threeDaysList.addItemDecoration(itemDecoration);
     }
 
-    private void requestWeather ( String cityName ) {
-        AlertDialog.Builder builder = new AlertDialog.Builder ( getContext ());
-        builder.setTitle ( getString( R.string.important_message) )
-                .setMessage ( getString( R.string.connection_error) )
-                .setPositiveButton ( getString( R.string.ok), new DialogInterface.OnClickListener ()
-                {
-                    @Override
-                    public void onClick ( DialogInterface dialogInterface, int i )
-                    {
-                    }
-                } );
-        final AlertDialog alert = builder.create ();
-        try{
-            String url = WEATHER_URL + "q=" + cityName.replace ( " ", "%20" ) + "&appid=" + BuildConfig.API_KEY;
-            final URL uri = new URL(url);
-            final Handler handler = new Handler();
-            new Thread(new Runnable() {
-                @RequiresApi (api = Build.VERSION_CODES.N)
-                @Override
-                public void run() {
-                    HttpsURLConnection urlConnection = null;
-                    try{
-                        urlConnection = (HttpsURLConnection) uri.openConnection();
-                        urlConnection.setRequestMethod("GET");
-                        urlConnection.setReadTimeout(1000);
-                        BufferedReader in = new BufferedReader(new InputStreamReader (urlConnection.getInputStream()));
-                        String result = getLines(in);
-                        Gson gson = new Gson();
-                        final WeatherRequest request = gson.fromJson(result, WeatherRequest.class);
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                displayWeather ( request );
-                            }
-                        });
-                    }catch(Exception e){
-                        handler.post (new Runnable () {
-                            @Override
-                            public void run()
-                            {
-                                alert.show ();
-                            }
-                        });
-                        e.printStackTrace();
-                    }
-                }
-
-                @RequiresApi(api = Build.VERSION_CODES.N)
-                private String getLines(BufferedReader in) {
-                    return in.lines().collect( Collectors.joining("\n"));
-                }
-
-            }).start();
-        }catch(Exception e){
-            alert.show ();
-        }
-
-    }
-
     private void displayWeather ( WeatherRequest request ) {
         cityNameLabel.setText ( request.getName ());
         if ( GlobalSettings.getInstance ().getFahrenheitScale ())
@@ -188,5 +131,23 @@ public class WeatherFragment extends Fragment implements Constants
         else
             temperatureView.setText(String.format("%d°C", (int)(request.getMain().getTemp() - 273.16f )));
         humidityView.setText(String.format("%d%%", request.getMain().getHumidity()));
+    }
+
+    @Override
+    public void onResult ( WeatherRequest weatherRequest )
+    {
+        displayWeather ( weatherRequest );
+    }
+
+    @Override
+    public void onError ( Exception e )
+    {
+        alert.show ();
+    }
+
+    @Override
+    public Activity getWeatherReceiverActivity ()
+    {
+        return getActivity ();
     }
 }
