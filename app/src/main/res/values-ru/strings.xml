@@ -21,4 +21,7 @@
     <string name="yes">ДА</string>
     <string name="dark_theme">Темная тема</string>
     <string name="recently_cities">Последние города</string>
+    <string name="important_message">Важное сообщение!</string>
+    <string name="connection_error">Ошибка соединения.</string>
+    <string name="ok">ОК</string>
 </resources>

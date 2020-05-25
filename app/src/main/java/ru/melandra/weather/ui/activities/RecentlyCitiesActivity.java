@@ -1,8 +1,5 @@
 package ru.melandra.weather.ui.activities;
 
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.fragment.app.FragmentTransaction;
-
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
@@ -13,7 +10,6 @@ import android.widget.TextView;
 
 import ru.melandra.weather.R;
 import ru.melandra.weather.global.GlobalSettings;
-import ru.melandra.weather.ui.fragments.WeatherFragment;
 
 public class RecentlyCitiesActivity extends BaseActivity
 {
