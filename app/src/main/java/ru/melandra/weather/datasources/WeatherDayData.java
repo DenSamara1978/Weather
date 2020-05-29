@@ -1,57 +1,68 @@
 package ru.melandra.weather.datasources;
 
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+
+import java.util.Date;
+
+import ru.melandra.weather.data.Clouds;
+import ru.melandra.weather.data.Main;
+import ru.melandra.weather.data.Weather;
+import ru.melandra.weather.data.Wind;
+
 public class WeatherDayData
 {
-    private String date;
-    private int temperature;
-    private int humidity;
-    private int pressure;
-    private int windStrength;
-    private String windDirection;
-    private int cloudy;
+    private Weather[] weather;
+    @SerializedName ("main")
+    @Expose
+    private Main main;
+    @SerializedName ("wind")
+    @Expose
+    private Wind wind;
+    @SerializedName ("clouds")
+    @Expose
+    private Clouds clouds;
+    @SerializedName ("name")
+    @Expose
+    private String name;
 
-    public WeatherDayData ( String date, int temperature, int humidity, int pressure, int windStrength, String windDirection, int cloudy ) {
-        this.date = date;
-        this.temperature = temperature;
-        this.humidity = humidity;
-        this.pressure = pressure;
-        this.windStrength = windStrength;
-        this.windDirection = windDirection;
-        this.cloudy = cloudy;
-    }
-
-    public int getTemperature ()
+    public float getTemperature ()
     {
-        return temperature;
+        return main.getTemp ();
     }
 
     public int getHumidity ()
     {
-        return humidity;
+        return main.getHumidity ();
     }
 
     public int getPressure ()
     {
-        return pressure;
+        return main.getPressure ();
     }
 
-    public int getWindStrength ()
+    public int getWindSpeed ()
     {
-        return windStrength;
+        return wind.getSpeed ();
     }
 
-    public String getWindDirection ()
+    public int getWindDirection ()
     {
-        return windDirection;
+        return wind.getDeg ();
     }
 
     public int getCloudy ()
     {
-        return cloudy;
+        return clouds.getAll ();
+    }
+
+    public String getCityName ()
+    {
+        return name;
     }
 
     public String getDate ()
     {
-        return date;
+        return "2020-05-29";
     }
 }
