@@ -17,10 +17,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
-import ru.melandra.weather.data.WeatherRequest;
-import ru.melandra.weather.datasources.NetInteraction;
+import ru.melandra.weather.datasources.WeatherDayData;
+import ru.melandra.weather.global.NetInteraction;
 import ru.melandra.weather.datasources.RequestWeatherReciever;
 import ru.melandra.weather.datasources.WeatherDayDataSource;
 import ru.melandra.weather.datasources.WeatherDaySourceBuilder;
@@ -29,6 +30,7 @@ import ru.melandra.weather.global.GlobalSettings;
 import ru.melandra.weather.R;
 import ru.melandra.weather.ui.adapters.WeatherDayAdapter;
 
+import com.squareup.picasso.Picasso;
 
 
 /**
@@ -40,6 +42,8 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
     private RecyclerView threeDaysList;
     private TextView temperatureView;
     private TextView humidityView;
+    private ImageView cloudinessView;
+    private ImageView windView;
 
     private final static int REQUEST_CODE = 1;
     private AlertDialog alert;
@@ -69,6 +73,8 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
         threeDaysList = view.findViewById ( R.id.threeDaysList );
         temperatureView = view.findViewById ( R.id.temperatureView );
         humidityView = view.findViewById ( R.id.humidityView );
+        cloudinessView = view.findViewById ( R.id.cloudinessView );
+        windView = view.findViewById ( R.id.windDirectionView );
 
         String cityName = ( getArguments () == null ) ? GlobalSettings.getInstance ().getCityName () : getCurrentCityName ();
         cityNameLabel.setText ( cityName );
@@ -88,7 +94,7 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
         initThreeDaysList ();
         initErrorDialog ();
 
-        NetInteraction.requestWeather ( cityName, this );
+        NetInteraction.getInstance ().requestWeather ( cityName, this );
         return view;
     }
 
@@ -124,30 +130,49 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
         threeDaysList.addItemDecoration(itemDecoration);
     }
 
-    private void displayWeather ( WeatherRequest request ) {
-        cityNameLabel.setText ( request.getName ());
+    private void displayWeather ( WeatherDayData weather ) {
+        cityNameLabel.setText ( weather.getCityName ());
+
+        float temperatureKelvin = weather.getTemperature () - 273.16f;
         if ( GlobalSettings.getInstance ().getFahrenheitScale ())
-            temperatureView.setText(String.format("%d°F", (int)((request.getMain().getTemp() - 273.16f ) * 1.8f ) + 32 ));
+            temperatureView.setText(String.format("%d°F", (int)(temperatureKelvin * 1.8f ) + 32 ));
         else
-            temperatureView.setText(String.format("%d°C", (int)(request.getMain().getTemp() - 273.16f )));
-        humidityView.setText(String.format("%d%%", request.getMain().getHumidity()));
+            temperatureView.setText(String.format("%d°C", (int)(temperatureKelvin)));
+        humidityView.setText(String.format("%d%%", weather.getHumidity ()));
+
+        Picasso.get()
+                .load("https://icon-icons.com/downloadimage.php?id=134157&root=2211/PNG/512/&file=weather_sun_sunny_cloud_icon_134157.png")
+                .into(cloudinessView);
+
     }
 
     @Override
-    public void onResult ( WeatherRequest weatherRequest )
+    public void onResult ( final WeatherDayData weather )
     {
-        displayWeather ( weatherRequest );
+        Activity activity = getActivity ();
+        if ( activity != null )
+            activity.runOnUiThread ( new Runnable ()
+            {
+                @Override
+                public void run ()
+                {
+                    displayWeather ( weather );
+                }
+            } );
     }
 
     @Override
-    public void onError ( Exception e )
+    public void onError ( Throwable thr )
     {
-        alert.show ();
-    }
-
-    @Override
-    public Activity getWeatherReceiverActivity ()
-    {
-        return getActivity ();
+        Activity activity = getActivity ();
+        if ( activity != null )
+            activity.runOnUiThread ( new Runnable ()
+            {
+                @Override
+                public void run ()
+                {
+                    alert.show ();
+                }
+            } );
     }
 }

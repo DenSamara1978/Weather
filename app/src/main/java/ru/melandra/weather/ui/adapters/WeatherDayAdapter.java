@@ -65,12 +65,12 @@ public class WeatherDayAdapter  extends RecyclerView.Adapter<WeatherDayAdapter.V
 
         public void setData ( WeatherDayData data ) {
             dateView.setText ( data.getDate () );
-            int temperature = data.getTemperature ();
+            int temperature = (int)(data.getTemperature ());
             temperatureView.setText ((( temperature < 0 ) ? "-" : "+" ) + temperature + "°C");
             humidityView.setText ( data.getHumidity () + "%" );
             pressureView.setText ( data.getPressure () + " мм рт.ст.");
             cloudyView.setText ( data.getCloudy () + " баллов" );
-            windStrengthView.setText ( data.getWindStrength () + "м/с" );
+            windStrengthView.setText ( data.getWindSpeed () + "м/с" );
             windDirectionView.setText ( data.getWindDirection ());
         }
     }

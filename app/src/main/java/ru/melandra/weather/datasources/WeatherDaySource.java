@@ -24,10 +24,9 @@ public class WeatherDaySource implements WeatherDayDataSource
     }
 
     public WeatherDaySource init () {
-        // Решил с ресурсами не заморачиваться - все равно потом с сетью работать для наполнения данными
-        dataSource.add ( new WeatherDayData ("27 апреля", 20, 33, 755, 10, "NE", 3  ));
-        dataSource.add ( new WeatherDayData ("28 апреля", 19, 35, 753, 12, "N", 4  ));
-        dataSource.add ( new WeatherDayData ("29 апреля", 23, 20, 765, 7, "NW", 2  ));
+//        dataSource.add ( new WeatherDayData ("27 апреля", 20, 33, 755, 10, "NE", 3  ));
+//        dataSource.add ( new WeatherDayData ("28 апреля", 19, 35, 753, 12, "N", 4  ));
+//        dataSource.add ( new WeatherDayData ("29 апреля", 23, 20, 765, 7, "NW", 2  ));
         return this;
     }
 

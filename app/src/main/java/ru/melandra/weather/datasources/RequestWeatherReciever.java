@@ -1,12 +1,9 @@
 package ru.melandra.weather.datasources;
 
-import android.app.Activity;
-
-import ru.melandra.weather.data.WeatherRequest;
+import ru.melandra.weather.datasources.WeatherDayData;
 
 public interface RequestWeatherReciever
 {
-    void onResult ( WeatherRequest weatherRequest );
-    void onError ( Exception e );
-    Activity getWeatherReceiverActivity ();
+    void onResult ( WeatherDayData weather );
+    void onError ( Throwable thr );
 }
