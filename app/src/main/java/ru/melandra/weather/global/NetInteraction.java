@@ -1,20 +1,12 @@
 package ru.melandra.weather.global;
 
-import android.app.Activity;
-import android.os.Build;
-import android.os.Handler;
+import android.widget.ImageView;
 
-import androidx.annotation.RequiresApi;
+import com.squareup.picasso.Picasso;
 
-import com.google.gson.Gson;
-
-import java.io.BufferedReader;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.net.URL;
-import java.util.stream.Collectors;
-
-import javax.net.ssl.HttpsURLConnection;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Locale;
 
 import retrofit2.Call;
 import retrofit2.Callback;
@@ -25,7 +17,7 @@ import ru.melandra.weather.BuildConfig;
 import ru.melandra.weather.datasources.OpenWeather;
 import ru.melandra.weather.datasources.RequestWeatherReciever;
 import ru.melandra.weather.datasources.WeatherDayData;
-import ru.melandra.weather.global.Constants;
+import ru.melandra.weather.model.History;
 
 public class NetInteraction implements Constants
 {
@@ -33,6 +25,7 @@ public class NetInteraction implements Constants
     private static final Object monitor = new Object ();
 
     private OpenWeather openWeather;
+    private SimpleDateFormat dateFormat;
 
     public static NetInteraction getInstance ()
     {
@@ -55,22 +48,41 @@ public class NetInteraction implements Constants
                 .addConverterFactory(GsonConverterFactory.create())
                 .build();
         openWeather = retrofit.create(OpenWeather.class);
+        dateFormat = new SimpleDateFormat("dd MMMM yyyy", Locale.getDefault());
     }
 
-    public void requestWeather ( final String cityName, final RequestWeatherReciever receiver ) {
-        openWeather.loadWeather(cityName, BuildConfig.API_KEY)
-                .enqueue(new Callback<WeatherDayData> () {
+    public void requestCurrentWeather ( final String cityName, final RequestWeatherReciever receiver )
+    {
+        openWeather.loadCurrentWeather ( cityName, BuildConfig.API_KEY )
+                .enqueue ( new Callback< WeatherDayData > ()
+                {
                     @Override
-                    public void onResponse( Call<WeatherDayData> call, Response<WeatherDayData> response) {
-                        if (response.body() != null) {
-                            receiver.onResult ( response.body());
+                    public void onResponse ( Call< WeatherDayData > call, Response< WeatherDayData > response )
+                    {
+                        if ( response.body () != null )
+                        {
+                            WeatherDayData weather = response.body ();
+                            weather.setDate ( new Date () );
+                            History history = new History ();
+                            history.cityName = cityName;
+                            history.date = dateFormat.format ( weather.getDate ());
+                            history.temperature = Weather.getTemperature ( weather.getTemperature ());
+                            HistoryList.getInstance ().updateCity ( history );
+                            receiver.onResult ( weather );
                         }
                     }
 
                     @Override
-                    public void onFailure(Call<WeatherDayData> call, Throwable thr) {
+                    public void onFailure ( Call< WeatherDayData > call, Throwable thr )
+                    {
                         receiver.onError ( thr );
                     }
-                });
+                } );
+    }
+
+    public void loadImage ( ImageView imageView ) {
+        Picasso.get()
+                .load("https://icon-icons.com/downloadimage.php?id=134157&root=2211/PNG/512/&file=weather_sun_sunny_cloud_icon_134157.png")
+                .into(imageView);
     }
 }

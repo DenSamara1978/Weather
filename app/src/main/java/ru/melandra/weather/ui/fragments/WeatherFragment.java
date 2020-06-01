@@ -28,8 +28,10 @@ import ru.melandra.weather.datasources.WeatherDaySourceBuilder;
 import ru.melandra.weather.global.Constants;
 import ru.melandra.weather.global.GlobalSettings;
 import ru.melandra.weather.R;
+import ru.melandra.weather.global.Weather;
 import ru.melandra.weather.ui.adapters.WeatherDayAdapter;
 
+import com.squareup.picasso.Callback;
 import com.squareup.picasso.Picasso;
 
 
@@ -94,7 +96,7 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
         initThreeDaysList ();
         initErrorDialog ();
 
-        NetInteraction.getInstance ().requestWeather ( cityName, this );
+        NetInteraction.getInstance ().requestCurrentWeather ( cityName, this );
         return view;
     }
 
@@ -132,18 +134,9 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
 
     private void displayWeather ( WeatherDayData weather ) {
         cityNameLabel.setText ( weather.getCityName ());
-
-        float temperatureKelvin = weather.getTemperature () - 273.16f;
-        if ( GlobalSettings.getInstance ().getFahrenheitScale ())
-            temperatureView.setText(String.format("%d°F", (int)(temperatureKelvin * 1.8f ) + 32 ));
-        else
-            temperatureView.setText(String.format("%d°C", (int)(temperatureKelvin)));
+        temperatureView.setText ( Weather.getTemperature ( weather.getTemperature () ) );
         humidityView.setText(String.format("%d%%", weather.getHumidity ()));
-
-        Picasso.get()
-                .load("https://icon-icons.com/downloadimage.php?id=134157&root=2211/PNG/512/&file=weather_sun_sunny_cloud_icon_134157.png")
-                .into(cloudinessView);
-
+        NetInteraction.getInstance ().loadImage ( cloudinessView );
     }
 
     @Override

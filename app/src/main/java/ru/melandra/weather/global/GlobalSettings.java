@@ -1,10 +1,19 @@
 package ru.melandra.weather.global;
 
-import java.util.ArrayList;
-import java.util.List;
+import android.content.SharedPreferences;
+
+import ru.melandra.weather.model.History;
+
+import static android.content.Context.MODE_PRIVATE;
 
 public class GlobalSettings
 {
+    private static final String PREF_FILENAME = "prefFilename";
+    private static final String WIND_SHOW = "WIND_SHOW";
+    private static final String FAHRENHEIT_SCALE = "FAHRENHEIT_SCALE";
+    private static final String DARK_THEME = "DARK_THEME";
+    private static final String DEFAULT_CITY = "DEFAULT_CITY";
+
     private volatile static GlobalSettings instance = null;
     private static final Object monitor = new Object ();
 
@@ -13,14 +22,8 @@ public class GlobalSettings
     private boolean darkTheme;
     private String cityName;
 
-    private List<String> recentlyCities = new ArrayList<> ();
-
     private GlobalSettings ()
     {
-        windShow = false;
-        fahrenheitScale = false;
-        darkTheme = false;
-        cityName = "Moscow";
     }
 
     public static GlobalSettings getInstance ()
@@ -53,16 +56,19 @@ public class GlobalSettings
     public void setWindShow ( boolean windShow )
     {
         this.windShow = windShow;
+        save();
     }
 
     public void setFahrenheitScale ( boolean fahrenheitScale )
     {
         this.fahrenheitScale = fahrenheitScale;
+        save();
     }
 
     public void setCityName ( String cityName ) {
         this.cityName = cityName;
-        addRecentlyCity ( cityName );
+        HistoryList.getInstance ().addCity ( cityName );
+        save();
     }
 
     public boolean isDarkTheme ()
@@ -73,20 +79,25 @@ public class GlobalSettings
     public void setDarkTheme ( boolean darkTheme )
     {
         this.darkTheme = darkTheme;
+        save();
     }
 
-    private void addRecentlyCity ( String cityName )
-    {
-        if ( recentlyCities.contains ( cityName ))
-            return;
-        recentlyCities.add ( cityName );
-        if ( recentlyCities.size () > 6 )
-            recentlyCities.remove ( 0 );
-    }
+    public void save () {
+        SharedPreferences sharedPref = App.getInstance ().getApplicationContext ().getSharedPreferences(PREF_FILENAME, MODE_PRIVATE);
+        SharedPreferences.Editor editor = sharedPref.edit();
+        editor.putBoolean ( WIND_SHOW, windShow );
+        editor.putBoolean ( FAHRENHEIT_SCALE, fahrenheitScale );
+        editor.putBoolean ( DARK_THEME, darkTheme );
+        editor.putString ( DEFAULT_CITY, cityName );
+        editor.apply();
+   }
 
-    public List<String> getRecentlyCities ()
-    {
-        return recentlyCities;
+    public void load () {
+        SharedPreferences sharedPref = App.getInstance ().getApplicationContext ().getSharedPreferences(PREF_FILENAME, MODE_PRIVATE);
+        windShow = sharedPref.getBoolean ( WIND_SHOW,false );
+        fahrenheitScale = sharedPref.getBoolean ( FAHRENHEIT_SCALE, false );
+        darkTheme = sharedPref.getBoolean ( DARK_THEME, false );
+        cityName = sharedPref.getString ( DEFAULT_CITY, "Moscow" );
     }
 }
 

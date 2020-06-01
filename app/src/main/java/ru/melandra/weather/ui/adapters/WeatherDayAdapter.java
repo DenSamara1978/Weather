@@ -64,7 +64,7 @@ public class WeatherDayAdapter  extends RecyclerView.Adapter<WeatherDayAdapter.V
         }
 
         public void setData ( WeatherDayData data ) {
-            dateView.setText ( data.getDate () );
+            dateView.setText ( data.getDate ().toString () );
             int temperature = (int)(data.getTemperature ());
             temperatureView.setText ((( temperature < 0 ) ? "-" : "+" ) + temperature + "°C");
             humidityView.setText ( data.getHumidity () + "%" );

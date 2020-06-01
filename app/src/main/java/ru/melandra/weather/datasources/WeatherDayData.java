@@ -25,6 +25,7 @@ public class WeatherDayData
     @SerializedName ("name")
     @Expose
     private String name;
+    private Date date;
 
     public float getTemperature ()
     {
@@ -61,8 +62,12 @@ public class WeatherDayData
         return name;
     }
 
-    public String getDate ()
+    public void setDate ( Date date ) {
+        this.date = date;
+    }
+
+    public Date getDate ()
     {
-        return "2020-05-29";
+        return date;
     }
 }
