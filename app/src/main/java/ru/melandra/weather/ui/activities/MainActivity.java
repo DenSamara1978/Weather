@@ -3,6 +3,7 @@ package ru.melandra.weather.ui.activities;
 import android.os.Bundle;
 
 import ru.melandra.weather.R;
+import ru.melandra.weather.global.GlobalSettings;
 
 public class MainActivity extends BaseActivity
 {
@@ -11,5 +12,11 @@ public class MainActivity extends BaseActivity
     {
         super.onCreate ( savedInstanceState );
         setContentView ( R.layout.activity_main );
+    }
+
+    @Override
+    protected void onStop ()
+    {
+        super.onStop ();
     }
 }

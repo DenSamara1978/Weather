@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import ru.melandra.weather.R;
 import ru.melandra.weather.global.Constants;
 import ru.melandra.weather.global.GlobalSettings;
+import ru.melandra.weather.model.History;
 
 public abstract class BaseActivity extends AppCompatActivity implements Constants
 {
