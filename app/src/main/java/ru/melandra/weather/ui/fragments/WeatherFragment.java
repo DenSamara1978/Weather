@@ -31,13 +31,6 @@ import ru.melandra.weather.R;
 import ru.melandra.weather.global.Weather;
 import ru.melandra.weather.ui.adapters.WeatherDayAdapter;
 
-import com.squareup.picasso.Callback;
-import com.squareup.picasso.Picasso;
-
-
-/**
- * A simple {@link Fragment} subclass.
- */
 public class WeatherFragment extends Fragment implements Constants, RequestWeatherReciever
 {
     private TextView cityNameLabel;

@@ -24,4 +24,8 @@
     <string name="important_message">Важное сообщение!</string>
     <string name="connection_error">Ошибка соединения.</string>
     <string name="ok">ОК</string>
+    <string name="ImportantNotify">Важное уведомление</string>
+    <string name="NetworkTurnedOff">Сеть отключена</string>
+    <string name="NetworkTurnedOn">Сеть подключена</string>
+    <string name="LowBattaryCharge">Низкий заряд батареи</string>
 </resources>

@@ -2,8 +2,6 @@ package ru.melandra.weather.global;
 
 import android.content.SharedPreferences;
 
-import ru.melandra.weather.model.History;
-
 import static android.content.Context.MODE_PRIVATE;
 
 public class GlobalSettings

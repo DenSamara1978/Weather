@@ -23,9 +23,6 @@ import ru.melandra.weather.R;
 import ru.melandra.weather.ui.activities.WeatherActivity;
 
 
-/**
- * A simple {@link Fragment} subclass.
- */
 public class CitiesFragment extends Fragment implements Constants
 {
     private boolean isLandscapeOrientation;
@@ -40,7 +37,6 @@ public class CitiesFragment extends Fragment implements Constants
     public View onCreateView ( LayoutInflater inflater, ViewGroup container,
                                Bundle savedInstanceState )
     {
-        // Inflate the layout for this fragment
         return inflater.inflate ( R.layout.fragment_cities, container, false );
     }
 
