@@ -23,4 +23,8 @@
     <string name="important_message">Important message!</string>
     <string name="connection_error">Ошибка соединения.</string>
     <string name="ok">ОК</string>
+    <string name="ImportantNotify">Important notify</string>
+    <string name="NetworkTurnedOn">Network is turned on</string>
+    <string name="NetworkTurnedOff">Network is turned off</string>
+    <string name="LowBattaryCharge">Low battary charge</string>
 </resources>

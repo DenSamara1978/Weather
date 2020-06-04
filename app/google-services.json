@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "774824160882",
+    "firebase_url": "https://weather-288ab.firebaseio.com",
+    "project_id": "weather-288ab",
+    "storage_bucket": "weather-288ab.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:774824160882:android:206d6efd71a1052add5ceb",
+        "android_client_info": {
+          "package_name": "ru.melandra.weather"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "774824160882-l1cd2q5srpfkpa0cs4tl2taeefhvb0qd.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "ru.melandra.weather",
+            "certificate_hash": "892951f809a3a69f84b6c29537fa9a773387f282"
+          }
+        },
+        {
+          "client_id": "774824160882-g7r79rstg4pklmeffo41dqukp2k2v504.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAccBH-FAljMiiow0tMldf5mFlGILOTYLk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "774824160882-g7r79rstg4pklmeffo41dqukp2k2v504.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
