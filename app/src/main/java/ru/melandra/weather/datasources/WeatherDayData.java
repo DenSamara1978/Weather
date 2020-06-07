@@ -42,7 +42,7 @@ public class WeatherDayData
         return main.getPressure ();
     }
 
-    public int getWindSpeed ()
+    public double getWindSpeed ()
     {
         return wind.getSpeed ();
     }

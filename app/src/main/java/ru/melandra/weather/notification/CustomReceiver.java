@@ -24,7 +24,8 @@ public class CustomReceiver extends BroadcastReceiver implements Constants
             return; // Первым всегда приходит сообщение текущего состояния сети - его пропускаем
 
         String contentText;
-        if ( intent.getAction ().equals ( CONNECTION_INTENT ))
+        String intentAction = intent.getAction ();
+        if ( intentAction.equals ( CONNECTION_INTENT ))
         {
             final ConnectivityManager connMgr = ( ConnectivityManager ) context.getSystemService ( Context.CONNECTIVITY_SERVICE );
             final NetworkInfo wifi = connMgr.getNetworkInfo ( ConnectivityManager.TYPE_WIFI );
@@ -34,6 +35,8 @@ public class CustomReceiver extends BroadcastReceiver implements Constants
             else
                 contentText = context.getString ( R.string.NetworkTurnedOff );
         }
+        else if ( intentAction.equals ( WEATHER_ALERTER_MSG ))
+            contentText = intent.getStringExtra ( NAME_MSG );
         else
             contentText = context.getString( R.string.LowBattaryCharge);
 

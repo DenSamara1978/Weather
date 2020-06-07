@@ -88,4 +88,14 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/humidityView" />
 
+    <ImageView
+        android:id="@+id/targetView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/target"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cloudinessView" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

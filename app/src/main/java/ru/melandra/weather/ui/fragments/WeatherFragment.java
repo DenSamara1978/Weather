@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.location.Location;
 import android.net.Uri;
 import android.os.Bundle;
 
@@ -20,7 +21,9 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import ru.melandra.weather.datasources.RequestLocationReciever;
 import ru.melandra.weather.datasources.WeatherDayData;
+import ru.melandra.weather.global.App;
 import ru.melandra.weather.global.NetInteraction;
 import ru.melandra.weather.datasources.RequestWeatherReciever;
 import ru.melandra.weather.datasources.WeatherDayDataSource;
@@ -31,7 +34,7 @@ import ru.melandra.weather.R;
 import ru.melandra.weather.global.Weather;
 import ru.melandra.weather.ui.adapters.WeatherDayAdapter;
 
-public class WeatherFragment extends Fragment implements Constants, RequestWeatherReciever
+public class WeatherFragment extends Fragment implements Constants, RequestWeatherReciever, RequestLocationReciever
 {
     private TextView cityNameLabel;
     private RecyclerView threeDaysList;
@@ -39,6 +42,7 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
     private TextView humidityView;
     private ImageView cloudinessView;
     private ImageView windView;
+    private ImageView targetView;
 
     private final static int REQUEST_CODE = 1;
     private AlertDialog alert;
@@ -70,6 +74,7 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
         humidityView = view.findViewById ( R.id.humidityView );
         cloudinessView = view.findViewById ( R.id.cloudinessView );
         windView = view.findViewById ( R.id.windDirectionView );
+        targetView = view.findViewById ( R.id.targetView );
 
         String cityName = ( getArguments () == null ) ? GlobalSettings.getInstance ().getCityName () : getCurrentCityName ();
         cityNameLabel.setText ( cityName );
@@ -89,7 +94,17 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
         initThreeDaysList ();
         initErrorDialog ();
 
-        NetInteraction.getInstance ().requestCurrentWeather ( cityName, this );
+        final RequestLocationReciever fragment = this;
+        targetView.setOnClickListener ( new View.OnClickListener ()
+        {
+            @Override
+            public void onClick ( View v )
+            {
+                App.getInstance ().requestLocation ( getActivity (), fragment);
+            }
+        } );
+
+        NetInteraction.getInstance ().requestCurrentWeatherByCityname ( cityName, this );
         return view;
     }
 
@@ -160,5 +175,11 @@ public class WeatherFragment extends Fragment implements Constants, RequestWeath
                     alert.show ();
                 }
             } );
+    }
+
+    @Override
+    public void onResult ( Location location )
+    {
+        NetInteraction.getInstance ().requestCurrentWeatherByCoord ( location, this );
     }
 }
