@@ -9,6 +9,7 @@ import android.os.Build;
 import android.os.Bundle;
 
 import ru.melandra.weather.R;
+import ru.melandra.weather.global.App;
 import ru.melandra.weather.notification.CustomReceiver;
 
 public class MainActivity extends BaseActivity
@@ -25,6 +26,7 @@ public class MainActivity extends BaseActivity
         customReceiver = new CustomReceiver ();
         registerReceiver ( customReceiver, new IntentFilter ( Intent.ACTION_BATTERY_LOW ));
         registerReceiver ( customReceiver, new IntentFilter ( CONNECTION_INTENT ) );
+        registerReceiver ( customReceiver, new IntentFilter ( WEATHER_ALERTER_MSG ) );
     }
 
     @Override

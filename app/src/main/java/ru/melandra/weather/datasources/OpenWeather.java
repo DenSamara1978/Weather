@@ -8,4 +8,7 @@ public interface OpenWeather
 {
     @GET ("data/2.5/weather")
     Call< WeatherDayData > loadCurrentWeather( @Query("q") String cityCountry, @Query ("appid") String keyApi);
+
+    @GET ("data/2.5/weather")
+    Call< WeatherDayData > loadCurrentWeather( @Query("lat") String lat, @Query("lon") String lon, @Query ("appid") String keyApi);
 }
