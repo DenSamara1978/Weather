@@ -30,9 +30,9 @@ public class MainActivity extends BaseActivity
     }
 
     @Override
-    protected void onStop ()
+    protected void onDestroy ()
     {
-        super.onStop ();
+        super.onDestroy ();
         unregisterReceiver ( customReceiver );
     }
 
