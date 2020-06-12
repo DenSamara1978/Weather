@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#BBE9F8"
+    tools:context=".ui.fragments.WeatherFragment">
+
+    <TextView
+        android:id="@+id/cityView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="10dp"
+        android:layout_marginTop="16dp"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="@string/city_name"
+        android:textSize="42sp"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/cloudinessView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="20dp"
+        android:contentDescription="@string/cloudiness_vew_desc"
+        app:layout_constraintEnd_toStartOf="@+id/windView"
+        app:layout_constraintTop_toBottomOf="@+id/cityView"
+        app:srcCompat="@drawable/clear" />
+
+    <ImageView
+        android:id="@+id/windView"
+        android:layout_width="80dp"
+        android:layout_height="80dp"
+        android:layout_marginEnd="36dp"
+        android:contentDescription="@string/wind_view_desc"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/cloudinessView"
+        app:srcCompat="@drawable/wind" />
+
+    <TextView
+        android:id="@+id/temperatureView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="16dp"
+        android:layout_marginTop="20dp"
+        android:text="@string/temperature"
+        android:textSize="56sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cityView" />
+
+    <TextView
+        android:id="@+id/humidityView"
+        android:layout_width="wrap_content"
+        android:layout_height="73dp"
+        android:layout_marginStart="42dp"
+        android:text="@string/humidity"
+        android:textSize="56sp"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/temperatureView" />
+
+    <com.google.android.material.button.MaterialButton
+        android:id="@+id/contextAboutCityButton"
+        android:layout_width="124dp"
+        android:layout_height="47dp"
+        android:layout_marginTop="180dp"
+        android:layout_marginEnd="10dp"
+        android:text="@string/about_city"
+        android:textAllCaps="false"
+        android:textSize="16sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <androidx.recyclerview.widget.RecyclerView
+        android:id="@+id/threeDaysList"
+        android:layout_width="407dp"
+        android:layout_height="0dp"
+        android:layout_marginStart="1dp"
+        android:layout_marginTop="10dp"
+        android:layout_marginEnd="1dp"
+        android:layout_marginBottom="1dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/humidityView" />
+
+    <ImageView
+        android:id="@+id/targetView"
+        android:layout_width="60dp"
+        android:layout_height="60dp"
+        android:layout_marginTop="12dp"
+        android:src="@drawable/target"
+        android:enabled="false"
+        android:visibility="invisible"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/cloudinessView"
+        android:contentDescription="@string/geolocation" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

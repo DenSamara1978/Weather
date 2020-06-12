@@ -28,4 +28,5 @@
     <string name="NetworkTurnedOff">Сеть отключена</string>
     <string name="NetworkTurnedOn">Сеть подключена</string>
     <string name="LowBattaryCharge">Низкий заряд батареи</string>
+    <string name="geolocation">Геолокация</string>
 </resources>

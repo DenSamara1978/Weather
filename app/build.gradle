@@ -25,6 +25,19 @@ android {
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+    flavorDimensions 'version'
+    productFlavors {
+        geolocation {
+            dimension 'version'
+            versionNameSuffix '.geolocation'
+            applicationIdSuffix '.geolocation'
+        }
+        local {
+            dimension 'version'
+            applicationIdSuffix '.local'
+            versionNameSuffix '.local'
+        }
+    }
 }
 
 dependencies {
